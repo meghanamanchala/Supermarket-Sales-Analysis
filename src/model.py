@@ -1,4 +1,5 @@
 import os
+import pickle
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -60,6 +61,14 @@ def train_and_evaluate_model(input_path, output_dir):
     print("Training models...")
     rf_pipeline.fit(X_train, y_train)
     lr_pipeline.fit(X_train, y_train)
+    
+    # Save the Random Forest pipeline to models directory
+    models_dir = os.path.join(os.path.dirname(input_path), "..", "models")
+    os.makedirs(models_dir, exist_ok=True)
+    model_path = os.path.join(models_dir, "sales_prediction_model.pkl")
+    with open(model_path, "wb") as f:
+        pickle.dump(rf_pipeline, f)
+    print(f"Saved trained Random Forest model pipeline to: {model_path}")
     
     # Predictions
     y_pred_rf = rf_pipeline.predict(X_test)
