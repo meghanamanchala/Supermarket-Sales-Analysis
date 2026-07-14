@@ -422,25 +422,25 @@ def build_pdf_report(clean_data_path, output_pdf_path):
             Paragraph("T-test: Sales by Gender (Female vs Male)", table_text_style),
             Paragraph(f"t = {stats_results['t_test_gender']['t_stat']:.4f}", table_text_style),
             Paragraph(f"{stats_results['t_test_gender']['p_value']:.4f}", table_text_style),
-            Paragraph("Fail to Reject H0 (No significant difference)", table_text_style)
+            Paragraph("Reject H0 (Significant difference)" if stats_results['t_test_gender']['reject_h0'] else "Fail to Reject H0 (No significant difference)", table_text_style)
         ],
         [
             Paragraph("T-test: Rating by Customer Type (Member vs Normal)", table_text_style),
             Paragraph(f"t = {stats_results['t_test_customer_rating']['t_stat']:.4f}", table_text_style),
             Paragraph(f"{stats_results['t_test_customer_rating']['p_value']:.4f}", table_text_style),
-            Paragraph("Fail to Reject H0 (No significant difference)", table_text_style)
+            Paragraph("Reject H0 (Significant difference)" if stats_results['t_test_customer_rating']['reject_h0'] else "Fail to Reject H0 (No significant difference)", table_text_style)
         ],
         [
             Paragraph("ANOVA: Sales across Branches", table_text_style),
             Paragraph(f"F = {stats_results['anova_branch']['f_stat']:.4f}", table_text_style),
             Paragraph(f"{stats_results['anova_branch']['p_value']:.4f}", table_text_style),
-            Paragraph("Fail to Reject H0 (Branch means are similar)", table_text_style)
+            Paragraph("Reject H0 (Significant difference)" if stats_results['anova_branch']['reject_h0'] else "Fail to Reject H0 (Branch means are similar)", table_text_style)
         ],
         [
             Paragraph("ANOVA: Sales across Product Lines", table_text_style),
             Paragraph(f"F = {stats_results['anova_product_line']['f_stat']:.4f}", table_text_style),
             Paragraph(f"{stats_results['anova_product_line']['p_value']:.4f}", table_text_style),
-            Paragraph("Fail to Reject H0 (Product line means are similar)", table_text_style)
+            Paragraph("Reject H0 (Significant difference)" if stats_results['anova_product_line']['reject_h0'] else "Fail to Reject H0 (Product line means are similar)", table_text_style)
         ]
     ]
     
